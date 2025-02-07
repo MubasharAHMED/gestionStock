@@ -41,6 +41,38 @@ const initDB = async () => {
 };
 
 initDB().then((connection) => {
+  app.get("/produits", async (req, res) => {
+    const [result] = await connection.query("SELECT * FROM produits");
+    res.json(result);
+  });
+
+  app.get("/produits/:id", async (req, res) => {
+    const [result] = await connection.query(
+      `SELECT * FROM produits WHERE id=${req.params.id}`
+    );
+    res.json(result);
+  });
+
+  app.post("/produits", async (req, res) => {
+    const { reference, nom, prix_unitaire, quantite, categorie_id } = req.body;
+    const query = `INSERT INTO produits (reference, nom, prix_unitaire, quantite, categorie_id) VALUES ('${reference}', '${nom}', ${prix_unitaire}, ${quantite}, ${categorie_id})`;
+    await connection.query(query);
+    res.status(201).json({ message: "Produit ajouté avec succès" });
+  });
+
+  app.put("/produits/:id", async (req, res) => {
+    const { reference, nom, prix_unitaire, quantite, categorie_id } = req.body;
+    await connection.query(
+      `UPDATE produits SET reference = '${reference}', nom = '${nom}', prix_unitaire = ${prix_unitaire}, quantite = ${quantite}, categorie_id = ${categorie_id} WHERE id = ${req.params.id}`
+    );
+    res.json({ message: "Produit mis à jour" });
+  });
+
+  app.delete("/produits/:id", async (req, res) => {
+    await connection.query(`DELETE FROM produits WHERE id = ${req.params.id}`);
+    res.json({ message: "Produit supprimé" });
+  });
+
   app.listen(3000, () => {
     console.log("Serveur démarré sur le port 3000");
   });
