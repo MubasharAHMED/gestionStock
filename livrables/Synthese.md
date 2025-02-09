@@ -87,6 +87,113 @@ Relations entre les entités
     commandes → lignes_commande : Une commande peut contenir plusieurs lignes de commande (relation un-à-plusieurs).
     produits → lignes_commande : Un produit peut apparaître dans plusieurs lignes de commande (relation un-à-plusieurs).
 
+### Liste des endpoints de l'API
+
+#### 1. Obtenir la liste des produits
+
+- **Route** : `GET /produits`
+- **Paramètres** : Aucun
+- **Retour JSON** :
+  ```json
+  [
+    {
+      "id": 1,
+      "reference": "P001",
+      "nom": "Produit 1",
+      "prix_unitaire": 12.99,
+      "quantite": 100,
+      "categorie_id": 1
+    },
+    {
+      "id": 2,
+      "reference": "P002",
+      "nom": "Produit 2",
+      "prix_unitaire": 25.99,
+      "quantite": 50,
+      "categorie_id": 2
+    }
+  ]
+  ```
+- **Exemple d'appel** :
+  ```bash
+  xh GET http://localhost:3000/produits
+  ```
+
+#### 2. Obtenir un produit spécifique
+
+- **Route** : `GET /produits/:id`
+- **Paramètres** : `id` (ID du produit à obtenir)
+- **Retour JSON** :
+  ```json
+  {
+    "id": 1,
+    "reference": "P001",
+    "nom": "Produit 1",
+    "prix_unitaire": 12.99,
+    "quantite": 100,
+    "categorie_id": 1
+  }
+  ```
+- **Exemple d'appel** :
+  ```bash
+  xh GET http://localhost:3000/produits/1
+  ```
+
+#### 3. Ajouter un produit
+
+- **Route** : `POST /produits`
+- **Paramètres** :
+  ```json
+  {
+    "reference": "P003",
+    "nom": "Produit 3",
+    "prix_unitaire": 15.5,
+    "quantite": 200,
+    "categorie_id": 1
+  }
+  ```
+- **Retour JSON** :
+  ```json
+  {
+    "id": 3,
+    "reference": "P003",
+    "nom": "Produit 3",
+    "prix_unitaire": 15.5,
+    "quantite": 200,
+    "categorie_id": 1
+  }
+  ```
+- **Exemple d'appel** :
+  ```bash
+  xh POST http://localhost:3000/produits 'Content-Type: application/json' '{"reference": "P003", "nom": "Produit 3", "prix_unitaire": 15.50, "quantite": 200, "categorie_id": 1}'
+  ```
+
+#### 4. Mettre à jour un produit
+
+- **Route** : `PUT /produits/:id`
+- **Paramètres** :
+  ```json
+  {
+    "prix_unitaire": 18.0,
+    "quantite": 150
+  }
+  ```
+- **Retour JSON** :
+  ```json
+  {
+    "id": 1,
+    "reference": "P001",
+    "nom": "Produit 1",
+    "prix_unitaire": 18.0,
+    "quantite": 150,
+    "categorie_id": 1
+  }
+  ```
+- **Exemple d'appel** :
+  ```bash
+  xh PUT http://localhost:3000/produits/1 'Content-Type: application/json' '{"prix_unitaire": 18.00, "quantite": 150}'
+  ```
+
 ### Résumé de l'audit
 
 **Introduction**
