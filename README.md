@@ -33,3 +33,7 @@ Pour démarrer le serveur, utilisez la commande suivante :
 ```bash
     npm start
 ```
+
+## 2. Schema de la base de données
+
+![Voici le MCD](./rapports/MCD_gestion_de_stock.PNG)
