@@ -1,4 +1,4 @@
-# Rapport du Projet - Gestion de Stock
+# Rapport du Projet - Gestion de Stock - V2
 
 ## 1. Prérequis
 
@@ -9,14 +9,14 @@ Ce projet a été développé sous **Windows 10/11** avec les technologies suiva
 - **MySQL Server** 8.0.41
 - **MySQL Workbench Community** 8.0.41 – [Télécharger ici](https://dev.mysql.com/downloads/installer/)
 
-**Installation MySQL** :
+Durant l'installation, vous devez selectionner les deux options suivantes au minimum :
 
 - MySQL Server
 - MySQL Workbench
 
 ## 2. Configuration des variables d'environnement
 
-vous devez configurer les variables d'environnement.
+Vous devez configurer les variables d'environnement.
 
 - Copier le fichier `.env.example` en `.env`:
 
@@ -24,17 +24,31 @@ vous devez configurer les variables d'environnement.
 cp .env.example .env
 ```
 
-- Modifier le fichier `.env` avec vos propres valeurs :
+- Modifier le fichier `.env` avec vos propres valeurs.
 
 ## 3. Installation des dépendances
 
-Les versions des dépendances sont définies dans **package.json**. Exécutez la commande suivante pour installer les dépendances :
+Les versions des dépendances sont définies dans `package.json`. Exécutez la commande suivante pour installer les dépendances :
 
 ```bash
     npm install
 ```
 
-## 4. Lancement du projet
+## 4. Initialisation de la base de données
+
+Avant de démarrer le projet, vous devez initialiser la base de données. Pour cela, exécutez la commande suivante :
+
+```bash
+npm run init-db
+```
+
+Ce script va permettre :
+
+- Fffectuer la connexion avec le serveur MySQL
+- Créer la base de donnée défnie dans `env` avec les informations de connexion
+- Exécuter les fichiers `db/bV2.sql` et `db/dataV2.sql` pour créer les tables et insérer les données
+
+## 5. Lancement du projet
 
 Pour démarrer le serveur, utilisez la commande suivante :
 

@@ -1,34 +1,28 @@
-DROP DATABASE IF EXISTS gestion_stock;
-CREATE DATABASE gestion_stock;
-USE gestion_stock;
-
--- Table des catégories
 CREATE TABLE categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nom VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Table des produits
 CREATE TABLE produits (
     id INT AUTO_INCREMENT PRIMARY KEY,
     reference VARCHAR(50) NOT NULL UNIQUE,
     nom VARCHAR(100) NOT NULL,
     prix_unitaire DECIMAL(10,2) NOT NULL,
-    quantite INT NOT NULL,
+    quantite INT NOT NULL default 0,
     categorie_id INT,
     FOREIGN KEY (categorie_id) REFERENCES categories(id) ON DELETE SET NULL
 );
 
-
--- Table des fournisseurs
 CREATE TABLE fournisseurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(100) NOT NULL,
-    contact VARCHAR(100),
-    adresse VARCHAR(255)
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    telephone VARCHAR(20),
+    adresse VARCHAR(255),
+    code_postal VARCHAR(20),
+    ville VARCHAR(100)            
 );
 
--- Table de relation entre produits et fournisseurs
 CREATE TABLE fournisseurs_produits (
     produit_id INT,
     fournisseur_id INT,
@@ -38,15 +32,17 @@ CREATE TABLE fournisseurs_produits (
     FOREIGN KEY (fournisseur_id) REFERENCES fournisseurs(id) ON DELETE CASCADE
 );
 
--- Table des clients
 CREATE TABLE clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(100) NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,  
     email VARCHAR(100) NOT NULL UNIQUE,
-    adresse VARCHAR(255)
+    telephone VARCHAR(20),
+    adresse VARCHAR(255),
+    code_postal VARCHAR(20),
+    ville VARCHAR(100)            
 );
 
--- Table des commandes
 CREATE TABLE commandes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT,
@@ -54,7 +50,6 @@ CREATE TABLE commandes (
     FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE SET NULL
 );
 
--- Table des lignes de commande
 CREATE TABLE lignes_commande (
     id INT AUTO_INCREMENT PRIMARY KEY,
     commande_id INT,
