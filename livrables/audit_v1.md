@@ -104,3 +104,11 @@ Il n’y a pas de contrôle sur la cohérence des données, par exemple la possi
 Les attributs ne respecte pas les conventions. Par exemple, le nom dans client doit etre divisé en deux attributs, comme nom et prénom par exemple. Même remarque pour l'adresse. Il doit y avoir un attribut code postal.
 
 **Solution** : Ajouter les attributs pour respecter les conventions.
+
+## 4. Problèmes liées à la gestion de projet
+
+**Arborescence linéaire**
+
+Tous les fichiers sont placés à la racine et cela peut nuire à la maintenabilité et à l'évolution du code.
+
+**Solution** : Mieux structuré le projet.
