@@ -44,8 +44,8 @@ npm run init-db
 
 Ce script va permettre :
 
-- Fffectuer la connexion avec le serveur MySQL
-- Créer la base de donnée défnie dans `env` avec les informations de connexion
+- Effectuer la connexion avec le serveur MySQL
+- Créer la base de donnée définie dans `env` avec les informations de connexion
 - Exécuter les fichiers `db/bV2.sql` et `db/dataV2.sql` pour créer les tables et insérer les données
 
 ## 5. Lancement du projet
