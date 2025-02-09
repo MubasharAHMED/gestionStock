@@ -14,11 +14,19 @@ Ce projet a été développé sous **Windows 10/11** avec les technologies suiva
 - MySQL Server
 - MySQL Workbench
 
-**Configuration** :
+## 2. Configuration des variables d'environnement
 
-Ajoutez vos identifiants de votre base de données dans le fichier **app.js**, dans l'objet **dbConfig**.
+vous devez configurer les variables d'environnement.
 
-### Installation
+- Copier le fichier `.env.example` en `.env`:
+
+```sh
+cp .env.example .env
+```
+
+- Modifier le fichier `.env` avec vos propres valeurs :
+
+## 3. Installation des dépendances
 
 Les versions des dépendances sont définies dans **package.json**. Exécutez la commande suivante pour installer les dépendances :
 
@@ -26,7 +34,7 @@ Les versions des dépendances sont définies dans **package.json**. Exécutez la
     npm install
 ```
 
-### Lancement du projet
+## 4. Lancement du projet
 
 Pour démarrer le serveur, utilisez la commande suivante :
 
