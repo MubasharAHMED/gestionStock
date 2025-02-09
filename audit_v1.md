@@ -1,4 +1,4 @@
-# Audit de la version 1 - Gestion de Stock
+# 2.D Audit de la version 1 - Gestion de Stock
 
 Dans le cadre du développement de la version 1 (V1) de l'application, une analyse approfondie a été réalisée pour identifier les principales failles de sécurité, les problèmes techniques et les améliorations possibles. Cette analyse met en évidence plusieurs points critiques et les solutions afin de garantir une sécurité optimale, une meilleure performance, et une expérience utilisateur plus fluide pour la prochaine version (V2).
 
