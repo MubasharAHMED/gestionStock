@@ -15,6 +15,24 @@ const commandesRoutes = ({ app }) => {
     }
   });
 
+  // Lister les commandes par plage de dates
+  app.get("/commandes", async (req, res) => {
+    const { start, end } = req.query;
+
+    // Si les deux paramètres de date sont fournis
+    if (start && end) {
+      const [result] = await pool.query(
+        "SELECT * FROM commandes WHERE date_commande BETWEEN ? AND ?",
+        [start, end]
+      );
+      return res.json(result);
+    }
+
+    // Si les paramètres ne sont pas fournis, on renvoie toutes les commandes
+    const [allCommandes] = await pool.query("SELECT * FROM commandes");
+    res.json(allCommandes);
+  });
+
   // Récupère une commande spécifique par son ID
   app.get("/commandes/:id", async (req, res) => {
     try {

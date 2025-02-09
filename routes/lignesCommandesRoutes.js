@@ -40,7 +40,31 @@ const lignesCommandesRoutes = ({ app }) => {
   // Ajoute une nouvelle ligne de commande
   app.post("/lignes_commande", async (req, res) => {
     const { commande_id, produit_id, quantite, prix_unitaire } = req.body;
+
     try {
+      // Début de la transaction
+      await pool.beginTransaction();
+
+      // Vérifier la quantité en stock du produit
+      const [produit] = await pool.query(
+        "SELECT stock FROM produits WHERE id = ?",
+        [produit_id]
+      );
+
+      if (!produit.length) {
+        return res.status(404).json({ message: "Produit non trouvé" });
+      }
+
+      const stockDisponible = produit[0].stock;
+
+      // Vérifier si la quantité demandée est disponible en stock
+      if (quantite > stockDisponible) {
+        return res.status(400).json({
+          message: `Stock insuffisant pour ce produit. Quantité disponible : ${stockDisponible}`,
+        });
+      }
+
+      // Ajouter la ligne de commande dans la base de données
       const query = `INSERT INTO lignes_commande (commande_id, produit_id, quantite, prix_unitaire) VALUES (?, ?, ?, ?)`;
       await pool.query(query, [
         commande_id,
@@ -48,7 +72,19 @@ const lignesCommandesRoutes = ({ app }) => {
         quantite,
         prix_unitaire,
       ]);
-      res.status(201).json({ message: "Ligne de commande ajoutée" });
+
+      // Mettre à jour le stock du produit
+      await pool.query("UPDATE produits SET stock = stock - ? WHERE id = ?", [
+        quantite,
+        produit_id,
+      ]);
+
+      // Fin de la transaction
+      await pool.commit();
+
+      res.status(201).json({
+        message: "Ligne de commande ajoutée avec succès et stock mis à jour",
+      });
     } catch (error) {
       console.error(error);
       res
