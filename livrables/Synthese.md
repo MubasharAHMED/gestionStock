@@ -24,6 +24,69 @@ Après avoir effectué l'audit de la V1. Je commence à développer la V2. Dans 
 
 ## 2.F Livrable final
 
+### Présentation des tables
+
+Entités (Tables)
+
+    categories
+        id (INT, AUTO_INCREMENT, PRIMARY KEY) : Identifiant unique de la catégorie.
+        nom (VARCHAR(50), NOT NULL, UNIQUE) : Nom de la catégorie de produit.
+
+    produits
+        id (INT, AUTO_INCREMENT, PRIMARY KEY) : Identifiant unique du produit.
+        reference (VARCHAR(50), NOT NULL, UNIQUE) : Référence unique du produit.
+        nom (VARCHAR(100), NOT NULL) : Nom du produit.
+        prix_unitaire (DECIMAL(10,2), NOT NULL) : Prix unitaire du produit.
+        quantite (INT, NOT NULL, DEFAULT 0) : Quantité disponible du produit en stock.
+        categorie_id (INT) : Référence à la catégorie du produit, clé étrangère vers categories(id).
+
+    fournisseurs
+        id (INT, AUTO_INCREMENT, PRIMARY KEY) : Identifiant unique du fournisseur.
+        nom (VARCHAR(50), NOT NULL) : Nom du fournisseur.
+        prenom (VARCHAR(50), NOT NULL) : Prénom du fournisseur.
+        telephone (VARCHAR(20)) : Numéro de téléphone du fournisseur.
+        adresse (VARCHAR(255)) : Adresse du fournisseur.
+        code_postal (VARCHAR(20)) : Code postal du fournisseur.
+        ville (VARCHAR(100)) : Ville du fournisseur.
+
+    fournisseurs_produits
+        produit_id (INT) : Identifiant du produit, clé étrangère vers produits(id).
+        fournisseur_id (INT) : Identifiant du fournisseur, clé étrangère vers fournisseurs(id).
+        prix_achat (DECIMAL(10,2)) : Prix d'achat du produit chez le fournisseur.
+
+    Relations :
+        Une relation many-to-many entre produits et fournisseurs, indiquant les fournisseurs pour chaque produit avec le prix d'achat.
+
+    clients
+        id (INT, AUTO_INCREMENT, PRIMARY KEY) : Identifiant unique du client.
+        nom (VARCHAR(50), NOT NULL) : Nom du client.
+        prenom (VARCHAR(50), NOT NULL) : Prénom du client.
+        email (VARCHAR(100), NOT NULL, UNIQUE) : Email du client.
+        telephone (VARCHAR(20)) : Numéro de téléphone du client.
+        adresse (VARCHAR(255)) : Adresse du client.
+        code_postal (VARCHAR(20)) : Code postal du client.
+        ville (VARCHAR(100)) : Ville du client.
+
+    commandes
+        id (INT, AUTO_INCREMENT, PRIMARY KEY) : Identifiant unique de la commande.
+        client_id (INT) : Référence au client ayant passé la commande, clé étrangère vers clients(id).
+        date_commande (DATE, NOT NULL) : Date de la commande.
+
+    lignes_commande
+        id (INT, AUTO_INCREMENT, PRIMARY KEY) : Identifiant unique de la ligne de commande.
+        commande_id (INT) : Référence à la commande, clé étrangère vers commandes(id).
+        produit_id (INT) : Référence au produit commandé, clé étrangère vers produits(id).
+        quantite (INT, NOT NULL) : Quantité commandée du produit.
+        prix_unitaire (DECIMAL(10,2), NOT NULL) : Prix unitaire du produit au moment de la commande.
+
+Relations entre les entités
+
+    categories → produits : Une catégorie peut avoir plusieurs produits (relation un-à-plusieurs).
+    produits ←→ fournisseurs : Un produit peut être fourni par plusieurs fournisseurs et un fournisseur peut fournir plusieurs produits (relation plusieurs-à-plusieurs via fournisseurs_produits).
+    clients → commandes : Un client peut passer plusieurs commandes (relation un-à-plusieurs).
+    commandes → lignes_commande : Une commande peut contenir plusieurs lignes de commande (relation un-à-plusieurs).
+    produits → lignes_commande : Un produit peut apparaître dans plusieurs lignes de commande (relation un-à-plusieurs).
+
 ### Résumé de l'audit
 
 **Introduction**
